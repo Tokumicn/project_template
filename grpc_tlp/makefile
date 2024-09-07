@@ -23,3 +23,4 @@ protoc:
 # 源文件在 third_party/swagger-ui/  生成到 pkg/swagger/data.go 中
 bindata-swag:
 	go-bindata --nocompress -pkg swagger -o pkg/swagger/data.go third_party/swagger-ui/...
+
