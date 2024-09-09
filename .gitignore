@@ -28,3 +28,4 @@ go.work.sum
 /.idea/dataSources.xml
 /gin_tlp/storage/uploads/*
 /gin_tlp/storage/logs/*
+go.sum

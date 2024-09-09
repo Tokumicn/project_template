@@ -15,10 +15,10 @@
     - 接口限流：github.com/juju/ratelimit 
     - 统一超时处理
 9. 邮件报警处理：gopkg.in/gomail.v2
-10. 链路追踪：
-11. 编译：
+10. 链路追踪：TODO
+11. 编译：TODO
 12. 优雅启停
-13. 热更新：不停机更新
+13. 热更新：不停机更新 TODO
 
  ```
 gin-tlp
