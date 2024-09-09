@@ -26,3 +26,5 @@ go.work.sum
 ../.idea/
 .DS_Store
 /.idea/dataSources.xml
+/gin_tlp/storage/uploads/*
+/gin_tlp/storage/logs/*
