@@ -50,3 +50,14 @@ gin-tlp
 - storage：项目生成的临时文件。
 - scripts：各类构建，安装，分析等操作的脚本。
 - third_party：第三方的资源工具，例如 Swagger UI。
+
+
+docker run for mysql:
+```txt
+# 使用 mysql:8.4 镜像  设置端口、账号、密码
+docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=rootroot mysql:8.4
+```
+
+
+
+

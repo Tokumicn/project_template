@@ -12,6 +12,9 @@ import (
 type Service struct {
 	ctx context.Context
 	dao *dao.Dao
+	// cache
+	// mq
+	// 这些需要再业务上使用到的组件可以通过该方式传入
 }
 
 func New(ctx context.Context) Service {

@@ -67,7 +67,7 @@ func configsConfigGo() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "configs/config.go", size: 0, mode: os.FileMode(420), modTime: time.Unix(1725847565, 0)}
+	info := bindataFileInfo{name: "configs/config.go", size: 0, mode: os.FileMode(420), modTime: time.Unix(1725880861, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -85,7 +85,7 @@ App:
   LogFileName: app
   LogFileExt: .log
   UploadSavePath: storage/uploads
-  UploadServerUrl: http://127.0.0.1:8000/static
+  UploadServerUrl: http://127.0.0.1:%s/static
   UploadImageMaxSize: 5  # MB
   UploadImageAllowExts:
     - .jpg
@@ -101,15 +101,15 @@ Email:
   To:
     - xxx
 JWT:
-  Secret: hello_world_!
-  Issuer: gin-tlp-service
-  Expire: 7200
+  Secret: tom_hello_world_!   # 密钥
+  Issuer: gin-tlp-service # 签发者
+  Expire: 7200            # 有效时间为 7200 秒
 Database:
   DBType: mysql
   UserName: root
   Password: rootroot
   Host: 127.0.0.1:3306
-  DBName: gin-tlp-service
+  DBName: GinTlpService
   TablePrefix: blog_
   Charset: utf8
   ParseTime: True
@@ -128,7 +128,7 @@ func configsConfigYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "configs/config.yaml", size: 843, mode: os.FileMode(420), modTime: time.Unix(1725847258, 0)}
+	info := bindataFileInfo{name: "configs/config.yaml", size: 904, mode: os.FileMode(420), modTime: time.Unix(1725880739, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

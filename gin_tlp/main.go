@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"gin_tlp/global"
 	"gin_tlp/internal/model"
@@ -13,7 +14,11 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
+	"net/http"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 )
 
@@ -56,15 +61,43 @@ func init() {
 // @description 使用gin作为http服务框架时涉及到的组件使用案例和项目模板
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
-	routers.NewRouter()
+	router := routers.NewRouter()
+	s := &http.Server{
+		Addr:           ":" + global.ServerSetting.HttpPort,
+		Handler:        router,
+		ReadTimeout:    global.ServerSetting.ReadTimeout,
+		WriteTimeout:   global.ServerSetting.WriteTimeout,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	go func() {
+		if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("s.ListenAndServe err: %v", err)
+		}
+	}()
+
+	log.Printf("http server start by %s \n", port)
+
+	quit := make(chan os.Signal)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	log.Println("shut down server...")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := s.Shutdown(ctx); err != nil {
+		log.Fatal("Server forced to shutdown:", err)
+	}
+
+	log.Println("server exiting")
 }
 
 // 启动参数处理
 func setupFlag() error {
-	flag.StringVar(&port, "port", "", "启动端口")
-	flag.StringVar(&runMode, "mode", "", "运行模式")
+	flag.StringVar(&port, "port", "8080", "启动端口")
+	flag.StringVar(&runMode, "mode", "debug", "运行模式")
 	flag.StringVar(&config, "config", "configs/", "指定配置文件路径，默认为: configs/")
-	flag.BoolVar(&isVersion, "version", false, "显示编译信息")
+	flag.BoolVar(&isVersion, "version", true, "显示编译信息")
 	flag.Parse()
 	return nil
 }

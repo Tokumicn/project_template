@@ -11,7 +11,7 @@ App:
   LogFileName: app
   LogFileExt: .log
   UploadSavePath: storage/uploads
-  UploadServerUrl: http://127.0.0.1:8000/static
+  UploadServerUrl: http://127.0.0.1:%s/static
   UploadImageMaxSize: 5  # MB
   UploadImageAllowExts:
     - .jpg
@@ -27,15 +27,15 @@ Email:
   To:
     - xxx
 JWT:
-  Secret: hello_world_!
-  Issuer: gin-tlp-service
-  Expire: 7200
+  Secret: tom_hello_world_!   # 密钥
+  Issuer: gin-tlp-service # 签发者
+  Expire: 7200            # 有效时间为 7200 秒
 Database:
   DBType: mysql
   UserName: root
   Password: rootroot
   Host: 127.0.0.1:3306
-  DBName: gin-tlp-service
+  DBName: GinTlpService
   TablePrefix: blog_
   Charset: utf8
   ParseTime: True

@@ -26,6 +26,7 @@ func GetAuth(c *gin.Context) {
 		return
 	}
 
+	// 生成Token
 	token, err := app.GenerateToken(param.AppKey, param.AppSecret)
 	if err != nil {
 		global.Logger.Errorf(c, "app.GenerateToken err: %v", err)

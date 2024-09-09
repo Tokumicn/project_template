@@ -2,7 +2,6 @@ package upload
 
 import (
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"os"
 	"path"
@@ -16,6 +15,7 @@ type FileType int
 
 const TypeImage FileType = iota + 1
 
+// GetFileName 将原有的文件通计算 MD5 的方式重命名 防止将原来的文件名暴露出去
 func GetFileName(name string) string {
 	ext := GetFileExt(name)
 	fileName := strings.TrimSuffix(name, ext)
@@ -24,10 +24,12 @@ func GetFileName(name string) string {
 	return fileName + ext
 }
 
+// GetFileExt 获取文件后缀名
 func GetFileExt(name string) string {
 	return path.Ext(name)
 }
 
+// GetSavePath 文件上传后最终存储的文件路径
 func GetSavePath() string {
 	return global.AppSetting.UploadSavePath
 }
@@ -36,12 +38,14 @@ func GetServerUrl() string {
 	return global.AppSetting.UploadServerUrl
 }
 
+// CheckSavePath 检查文件夹是否存在
 func CheckSavePath(dst string) bool {
 	_, err := os.Stat(dst)
 
 	return os.IsNotExist(err)
 }
 
+// CheckContainExt 检查上传的文件是否是允许的后缀名
 func CheckContainExt(t FileType, name string) bool {
 	ext := GetFileExt(name)
 	ext = strings.ToUpper(ext)
@@ -58,8 +62,9 @@ func CheckContainExt(t FileType, name string) bool {
 	return false
 }
 
+// CheckMaxSize 检查文件是否超过允许的最大值
 func CheckMaxSize(t FileType, f multipart.File) bool {
-	content, _ := ioutil.ReadAll(f)
+	content, _ := io.ReadAll(f)
 	size := len(content)
 	switch t {
 	case TypeImage:

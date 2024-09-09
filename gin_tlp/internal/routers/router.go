@@ -41,10 +41,15 @@ func NewRouter() *gin.Engine {
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 	upload := api.NewUpload()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "pong"})
+	})
 	r.GET("/debug/vars", api.Expvar)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload/file", upload.UploadFile)
 	r.POST("/auth", api.GetAuth)
+
+	// 实现让外部请求本项目 HTTP Server 时同时提供静态资源的访问，需要设置文件服务去提供静态资源的访问
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use() //middleware.JWT()
