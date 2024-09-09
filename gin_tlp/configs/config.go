@@ -1,5 +1,6 @@
 // Code generated for package configs by go-bindata DO NOT EDIT. (@generated)
 // sources:
+// configs/config.go
 // configs/config.yaml
 package configs
 
@@ -54,6 +55,23 @@ func (fi bindataFileInfo) Sys() interface{} {
 	return nil
 }
 
+var _configsConfigGo = []byte(``)
+
+func configsConfigGoBytes() ([]byte, error) {
+	return _configsConfigGo, nil
+}
+
+func configsConfigGo() (*asset, error) {
+	bytes, err := configsConfigGoBytes()
+	if err != nil {
+		return nil, err
+	}
+
+	info := bindataFileInfo{name: "configs/config.go", size: 0, mode: os.FileMode(420), modTime: time.Unix(1725847565, 0)}
+	a := &asset{bytes: bytes, info: info}
+	return a, nil
+}
+
 var _configsConfigYaml = []byte(`Server:
   RunMode: debug
   HttpPort: 8000
@@ -97,6 +115,7 @@ Database:
   ParseTime: True
   MaxIdleConns: 10
   MaxOpenConns: 30
+  SlowThreshold: 3000 # 慢查询超时时间 单位: ms(毫秒)
 `)
 
 func configsConfigYamlBytes() ([]byte, error) {
@@ -109,7 +128,7 @@ func configsConfigYaml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "configs/config.yaml", size: 778, mode: os.FileMode(420), modTime: time.Unix(1725677001, 0)}
+	info := bindataFileInfo{name: "configs/config.yaml", size: 843, mode: os.FileMode(420), modTime: time.Unix(1725847258, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -166,6 +185,7 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
+	"configs/config.go":   configsConfigGo,
 	"configs/config.yaml": configsConfigYaml,
 }
 
@@ -213,6 +233,7 @@ type bintree struct {
 
 var _bintree = &bintree{nil, map[string]*bintree{
 	"configs": &bintree{nil, map[string]*bintree{
+		"config.go":   &bintree{configsConfigGo, map[string]*bintree{}},
 		"config.yaml": &bintree{configsConfigYaml, map[string]*bintree{}},
 	}},
 }}

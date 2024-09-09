@@ -44,16 +44,18 @@ type JWTSettingS struct {
 
 // DatabaseSettingS 数据库配置
 type DatabaseSettingS struct {
-	DBType       string
-	UserName     string
-	Password     string
-	Host         string
-	DBName       string
-	TablePrefix  string
-	Charset      string
-	ParseTime    bool
-	MaxIdleConns int
-	MaxOpenConns int
+	DBType                string
+	UserName              string
+	Password              string
+	Host                  string
+	DBName                string
+	TablePrefix           string
+	Charset               string
+	ParseTime             bool
+	MaxIdleConns          int
+	MaxOpenConns          int
+	SlowThreshold         int // 慢查询超时时间  单位: ms(毫秒)
+	SlowThresholdDuration time.Duration
 }
 
 var sections = make(map[string]interface{})

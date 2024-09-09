@@ -1,7 +1,9 @@
 package model
 
 import (
+	"context"
 	"fmt"
+	"runtime"
 	"time"
 
 	"gin_tlp/global"
@@ -12,8 +14,9 @@ import (
 )
 
 const (
-	STATE_OPEN  = 1
-	STATE_CLOSE = 0
+	STATE_OPEN            = 1
+	STATE_CLOSE           = 0
+	SlowQueryStartTimeTag = "q_start_time"
 )
 
 type Model struct {
@@ -47,10 +50,52 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
 	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
 	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
 	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
+
+	// 慢SQL日志输出
+	db.Callback().Query().Before("gorm:query").Register("slow:before", beforeQuery)
+	db.Callback().Query().Before("gorm:after_query").Register("slow:after", afterQuery)
+
 	db.DB().SetMaxIdleConns(databaseSetting.MaxIdleConns)
 	db.DB().SetMaxOpenConns(databaseSetting.MaxOpenConns)
 	otgorm.AddGormCallbacks(db)
 	return db, nil
+}
+
+func beforeQuery(scope *gorm.Scope) {
+	scope.Set(SlowQueryStartTimeTag, time.Now()) // 记录查询开始时间
+}
+
+func afterQuery(scope *gorm.Scope) {
+	endTime := time.Now()
+	startTimeObj, ok := scope.Get(SlowQueryStartTimeTag)
+	if !ok {
+		global.Logger.Error(context.Background(), "after query get start time err")
+		return
+	}
+
+	startTime, ok := startTimeObj.(time.Time)
+	if !ok {
+		global.Logger.Error(context.Background(), "after query build startTimeObj to time.Time error")
+		return
+	}
+
+	duration := endTime.Sub(startTime)
+	if duration > global.DatabaseSetting.SlowThresholdDuration {
+		slowSQLStr := fmt.Sprintf("[SLOW_SQL] %s duration: %v, sql: [%s] \n",
+			currentFunction(4), duration, scope.SQL)
+		if len(slowSQLStr) > 3000 {
+			slowSQLStr = slowSQLStr[0:3000] // 超长时截断
+		}
+		global.Logger.Error(context.Background(), slowSQLStr)
+		return
+	}
+}
+
+// 获取调用堆栈信息
+func currentFunction(skip int) string {
+	pc, _, line, _ := runtime.Caller(skip)
+	funcName := runtime.FuncForPC(pc)
+	return fmt.Sprintf(" [method: %s, line: %d] ", funcName, line)
 }
 
 func updateTimeStampForCreateCallback(scope *gorm.Scope) {

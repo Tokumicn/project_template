@@ -10,10 +10,7 @@ swagger:
 	swag init
 
 
-# 将 swagger-ui 生成为静态文件供服务使用
-# 源文件在 third_party/swagger-ui/  生成到 pkg/swagger/data.go 中
-bindata-swag:
-	go-bindata --nocompress -pkg swagger -o pkg/swagger/data.go third_party/swagger-ui/...
-
+# 将 config.yaml 生成为静态文件供服务使用
+# 源文件在 configs/config.yaml  生成到 configs/config.go 中
 bindata-config:
 	go-bindata --nocompress -pkg configs -o configs/config.go configs/...

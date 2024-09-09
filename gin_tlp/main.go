@@ -97,6 +97,13 @@ func setupSetting() error {
 		return err
 	}
 
+	if global.DatabaseSetting.SlowThreshold <= 0 {
+		global.DatabaseSetting.SlowThreshold = 1000 // 默认 1s
+	}
+	// 慢 SQL 超时时间
+	global.DatabaseSetting.SlowThresholdDuration =
+		time.Duration(global.DatabaseSetting.SlowThreshold) * time.Millisecond
+
 	global.AppSetting.DefaultContextTimeout *= time.Second
 	global.JWTSetting.Expire *= time.Second
 	global.ServerSetting.ReadTimeout *= time.Second
