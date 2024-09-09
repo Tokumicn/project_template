@@ -11,6 +11,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func init() {
+	timeCmd.AddCommand(nowTimeCmd)
+	timeCmd.AddCommand(calculateTimeCmd)
+
+	calculateTimeCmd.Flags().StringVarP(&calculateTime, "calculate", "c", "", `需要计算的时间，有效单位为时间戳或已格式化后的时间`)
+	calculateTimeCmd.Flags().StringVarP(&duration, "duration", "d", "", `持续时间，有效时间单位为"ns", "us" (or "µs"), "ms", "s", "m", "h"`)
+}
+
 var timeCmd = &cobra.Command{
 	Use:   "time",
 	Short: "时间格式处理",
@@ -47,7 +55,7 @@ var calculateTimeCmd = &cobra.Command{
 				layout = "2006-01-02"
 			}
 			if space == 1 {
-				layout = "2006-01-02 15:04"
+				layout = time.DateTime
 			}
 			currentTimer, err = time.Parse(layout, calculateTime)
 			if err != nil {
@@ -62,12 +70,4 @@ var calculateTimeCmd = &cobra.Command{
 
 		log.Printf("输出结果: %s, %d", t.Format(layout), t.Unix())
 	},
-}
-
-func init() {
-	timeCmd.AddCommand(nowTimeCmd)
-	timeCmd.AddCommand(calculateTimeCmd)
-
-	calculateTimeCmd.Flags().StringVarP(&calculateTime, "calculate", "c", "", `需要计算的时间，有效单位为时间戳或已格式化后的时间`)
-	calculateTimeCmd.Flags().StringVarP(&duration, "duration", "d", "", `持续时间，有效时间单位为"ns", "us" (or "µs"), "ms", "s", "m", "h"`)
 }
