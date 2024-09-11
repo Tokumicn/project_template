@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc/metadata"
 	"grpc_tlp/global"
 	"grpc_tlp/internal/middleware"
-	"grpc_tlp/pkg/tracer"
 	pb "grpc_tlp/proto"
+	"lego_lib/tracer"
 	"log"
 )
 

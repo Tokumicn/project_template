@@ -1,13 +1,13 @@
 package tracer
 
 import (
+	"github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go/config"
 	"io"
 	"time"
-
-	opentracing "github.com/opentracing/opentracing-go"
-	"github.com/uber/jaeger-client-go/config"
 )
 
+// NewJaegerTracer 启动JaegerTracer Client
 func NewJaegerTracer(serviceName, agentHostPort string) (opentracing.Tracer, io.Closer, error) {
 	cfg := &config.Configuration{
 		ServiceName: serviceName,
