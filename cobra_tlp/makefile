@@ -1,10 +1,12 @@
+echo:
+	@echo "cobra-tlp"
 
 tidy:
 	go mod tidy
 
 build:
-	go build -o cobra_tlp  main.go
-
+	go mod tidy
+	go build -ldflags "-X main.version=0.0.1" -o cobra_tlp main.go
 
 run:
 	go run main.go help word

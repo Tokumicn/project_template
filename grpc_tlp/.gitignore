@@ -1,2 +1,5 @@
 ../.idea/
 .DS_Store
+/grpc_tlp_cli
+/grpc_tlp_svc
+/grpc_tlp

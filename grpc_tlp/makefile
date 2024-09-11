@@ -1,4 +1,12 @@
 
+echo:
+	@echo "grpc-tlp"
+
+build:
+	go mod tidy
+	go build -ldflags "-X main.version=0.0.1" -o grpc_tlp_svc ./cmd/main.go
+	go build -ldflags "-X main.version=0.0.1" -o grpc_tlp_cli ./cli/main.go
+
 protoc-sample:
 	protoc --go_out=plugins=grpc:. ./proto/*.proto
 

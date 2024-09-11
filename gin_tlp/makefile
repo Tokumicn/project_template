@@ -1,9 +1,12 @@
+echo:
+	@echo "gin-tlp"
+
+build:
+	go mod tidy
+	go build -ldflags "-X main.version=0.0.1" -o gin_tlp main.go
 
 tidy:
 	go mod tidy
-
-build:
-	go build -o gin_tlp  main.go
 
 run:
 	./gin_tlp -port 8080 -mode debug
