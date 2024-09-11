@@ -1,0 +1,5 @@
+../.idea/
+.DS_Store
+cmd_tlp
+go.sum
+output.txt
