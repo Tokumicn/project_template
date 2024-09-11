@@ -16,6 +16,7 @@ import (
 	"grpc_tlp/pkg/tracer"
 	pb "grpc_tlp/proto"
 	"grpc_tlp/server"
+	agent "lego_lib/gops_agent"
 	"log"
 	"net/http"
 	"path"
@@ -35,6 +36,16 @@ func init() {
 	}
 }
 
+func main() {
+	// 启动gops angent
+	agent.StartGopsAgent("")
+
+	err := RunServer(port)
+	if err != nil {
+		log.Fatalf("Run Serve err: %v", err)
+	}
+}
+
 func setupTracer() error {
 	// 创建 jaeger client
 	jaegerTracer, _, err := tracer.NewJaegerTracer("grpc-tlp-service", "127.0.0.1:6831")
@@ -43,13 +54,6 @@ func setupTracer() error {
 	}
 	global.Tracer = jaegerTracer
 	return nil
-}
-
-func main() {
-	err := RunServer(port)
-	if err != nil {
-		log.Fatalf("Run Serve err: %v", err)
-	}
 }
 
 func RunServer(port string) error {

@@ -13,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"gopkg.in/natefinch/lumberjack.v2"
+	agent "lego_lib/gops_agent"
 	"log"
 	"net/http"
 	"os"
@@ -60,6 +61,10 @@ func init() {
 // @version 1.0
 // @description 使用gin作为http服务框架时涉及到的组件使用案例和项目模板
 func main() {
+
+	// 启动gops agent
+	agent.StartGopsAgent("")
+
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRouter()
 	s := &http.Server{
