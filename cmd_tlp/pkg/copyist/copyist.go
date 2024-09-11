@@ -46,7 +46,7 @@ func RecordEverything(filePath string, fn func()) {
 		defer file.Close()
 
 		// 从管道读取数据并写入文件
-		// 程序会在这里永久等待EOF，因此标准输入的所有内容都会写入文件中
+		// 程序会在这里永久等待 EOF ，因此标准输入的所有内容都会写入文件中[核心逻辑]
 		_, err = io.Copy(file, r)
 		if err != nil {
 			log.Fatalf("error writing to file: %v", err)
@@ -60,7 +60,8 @@ func RecordEverything(filePath string, fn func()) {
 
 	fn() // 用户交互逻辑
 
-	// 关闭管道写端，触发 goroutine 退出
+	// 关闭管道写端，也就是方式 EOF ，结束 Copy 中的 for{} 死循环
+	// 从而最终触发 goroutine 退出
 	err = w.Close()
 	if err != nil {
 		log.Fatalf("error close pipe witer to file: %v", err)
