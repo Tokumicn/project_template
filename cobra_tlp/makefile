@@ -1,3 +1,5 @@
+.PHONY: echo tidy build run test-word test-time test-sql
+
 echo:
 	@echo "cobra-tlp"
 

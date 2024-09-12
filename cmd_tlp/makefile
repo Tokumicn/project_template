@@ -1,3 +1,7 @@
+.PHONY: echo build
+
+echo:
+	@echo "cmd_tlp"
 
 build:
 	go mod tidy

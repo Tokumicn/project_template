@@ -1,3 +1,5 @@
+.PHONY: echo build protoc-sample protoc bindata-swag
+
 
 echo:
 	@echo "grpc-tlp"

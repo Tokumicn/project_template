@@ -1,3 +1,5 @@
+.PHONY: echo build tidy run swagger bindata-config
+
 echo:
 	@echo "gin-tlp"
 
