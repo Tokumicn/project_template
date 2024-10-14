@@ -1,4 +1,4 @@
-module cmd_tlp
+module github.com/Tokumicn/cmd_tlp
 
 go 1.23.0
 

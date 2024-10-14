@@ -1,4 +1,4 @@
-module grpc_tlp
+module github.com/Tokumicn/grpc_tlp
 
 go 1.23.0
 

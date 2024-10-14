@@ -1,4 +1,4 @@
-module cobra_tlp
+module github.com/Tokumicn/cobra_tlp
 
 go 1.23.0
 
