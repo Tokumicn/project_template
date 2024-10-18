@@ -1,4 +1,4 @@
-module github.com/Tokumicn/gin_tlp
+module gin_tlp
 
 go 1.23.0
 
