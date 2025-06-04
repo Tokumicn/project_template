@@ -3,7 +3,7 @@ package json2struct
 import (
 	"fmt"
 
-	"cobra_tlp/internal/word"
+	"github.com/Tokumicn/cobra_tlp/internal/word"
 )
 
 type FieldSegment struct {

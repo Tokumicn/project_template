@@ -3,7 +3,7 @@ package cmd
 import (
 	"log"
 
-	"cobra_tlp/internal/sql2struct"
+	"github.com/Tokumicn/cobra_tlp/internal/sql2struct"
 	"github.com/spf13/cobra"
 )
 

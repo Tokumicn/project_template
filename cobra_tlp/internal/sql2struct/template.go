@@ -5,7 +5,7 @@ import (
 	"os"
 	"text/template"
 
-	"cobra_tlp/internal/word"
+	"github.com/Tokumicn/cobra_tlp/internal/word"
 )
 
 const strcutTpl = `type {{.TableName | ToCamelCase}} struct {

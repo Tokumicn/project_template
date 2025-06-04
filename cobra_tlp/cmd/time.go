@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"cobra_tlp/internal/timer"
+	"github.com/Tokumicn/cobra_tlp/internal/timer"
 
 	"github.com/spf13/cobra"
 )

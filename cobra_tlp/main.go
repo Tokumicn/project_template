@@ -1,7 +1,7 @@
 package main
 
 import (
-	"cobra_tlp/cmd"
+	"github.com/Tokumicn/cobra_tlp/cmd"
 	agent "lego_lib/gops_agent"
 	"log"
 )

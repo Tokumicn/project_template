@@ -4,7 +4,7 @@ import (
 	"log"
 	"strings"
 
-	"cobra_tlp/internal/word"
+	"github.com/Tokumicn/cobra_tlp/internal/word"
 	"github.com/spf13/cobra"
 )
 

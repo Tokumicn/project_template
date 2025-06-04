@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	"cobra_tlp/internal/word"
+	"github.com/Tokumicn/cobra_tlp/internal/word"
 )
 
 const (
